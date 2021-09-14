@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { auth } from "../lib/firebase";
+import { auth } from "../../lib/firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 

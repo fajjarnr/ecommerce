@@ -3,14 +3,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import RegisterComplete from "./pages/RegisterComplete";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import RegisterComplete from "./pages/auth/RegisterComplete";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 
 import { auth } from "./lib/firebase";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import ForgotPassword from "./pages/ForgotPassword";
+import { currentUser } from "./functions/auth";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,13 +20,20 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
+        currentUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(err));
       }
     });
 
