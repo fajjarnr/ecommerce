@@ -58,10 +58,11 @@ const Header = () => {
           icon={<SettingOutlined />}
           title={user.email && user.email.split("@")[0]}
           className="float-right"
+          key="dropDown"
         >
           <Item key="setting:1">Option 1</Item>
           <Item key="setting:2">Option 2</Item>
-          <Item icon={<LogoutOutlined />} onClick={logout}>
+          <Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
             Logout
           </Item>
         </SubMenu>
