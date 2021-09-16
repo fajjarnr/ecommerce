@@ -3,13 +3,19 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/navbar/Header";
+
+import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
+
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
-import UserRoute from "./components/routes/UserRoute";
+import Password from "./pages/user/Password";
+import Wishlist from "./pages/user/Wishlist";
+import Dashboard from "./pages/admin/Dashboard";
 
 import { auth } from "./lib/firebase";
 import { useDispatch } from "react-redux";
@@ -29,11 +35,11 @@ function App() {
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
+                _id: res.data._id,
                 name: res.data.name,
                 email: res.data.email,
-                token: idTokenResult.token,
                 role: res.data.role,
-                _id: res.data._id,
+                token: idTokenResult.token,
               },
             });
           })
@@ -54,7 +60,12 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/register/complete" component={RegisterComplete} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
+
         <UserRoute exact path="/user/history" component={History} />
+        <UserRoute exact path="/user/password" component={Password} />
+        <UserRoute exact path="/user/wishlist" component={Wishlist} />
+
+        <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
       </Switch>
     </>
   );

@@ -7,7 +7,7 @@ const UserRoute = ({ component: Component, children, ...rest }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   return user && user.token ? (
-    <Route {...rest} render={() => children} />
+    <Route {...rest} render={() => <Component {...rest} />} />
   ) : (
     <LoadingToRedirect />
   );

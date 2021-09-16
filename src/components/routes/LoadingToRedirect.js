@@ -11,7 +11,7 @@ const LoadingToRedirect = () => {
       setCount((currentCount) => --currentCount);
     }, 1000);
 
-    count === 0 && history.push("/");
+    count === 0 && history.replace("/");
 
     return () => clearInterval(interval);
   }, [count, history]);
@@ -19,7 +19,7 @@ const LoadingToRedirect = () => {
   return (
     <div className="container p-5 text-center">
       <p>
-        Redirecting you in <LoadingOutlined /> {count} seconds
+        Redirecting you in {count} <LoadingOutlined /> seconds
       </p>
     </div>
   );

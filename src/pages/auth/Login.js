@@ -40,11 +40,11 @@ const Login = ({ history }) => {
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
+              _id: res.data._id,
               name: res.data.name,
               email: res.data.email,
-              token: idTokenResult.token,
               role: res.data.role,
-              _id: res.data._id,
+              token: idTokenResult.token,
             },
           });
           roleBasedRedirect(res);
@@ -70,11 +70,11 @@ const Login = ({ history }) => {
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
+                _id: res.data._id,
                 name: res.data.name,
                 email: res.data.email,
-                token: idTokenResult.token,
                 role: res.data.role,
-                _id: res.data._id,
+                token: idTokenResult.token,
               },
             });
             roleBasedRedirect(res);
