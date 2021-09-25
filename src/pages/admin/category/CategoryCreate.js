@@ -1,8 +1,16 @@
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import CategoryForm from "../../../components/forms/CategoryForm";
+import LocalSearch from "../../../components/forms/LocalSearch";
 import AdminNav from "../../../components/navbar/AdminNav";
-import { createCategory, getCategories } from "../../../functions/category";
+import {
+  createCategory,
+  getCategories,
+  removeCategory,
+} from "../../../functions/category";
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -10,6 +18,7 @@ const CategoryCreate = () => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -26,12 +35,34 @@ const CategoryCreate = () => {
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);
+        loadCategories();
       })
       .catch((err) => {
+        console.log(err);
         setLoading(false);
         if (err.response.status === 400) toast.error(err.response.data);
       });
   };
+
+  const handleRemove = async (slug) => {
+    if (window.confirm("Delete?")) {
+      setLoading(true);
+      removeCategory(slug, user.token)
+        .then((res) => {
+          setLoading(false);
+          toast.error(`${res.data.name} deleted`);
+          loadCategories();
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            setLoading(false);
+            toast.error(err.response.data);
+          }
+        });
+    }
+  };
+
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
     <div className="container-fluid">
@@ -45,23 +76,32 @@ const CategoryCreate = () => {
           ) : (
             <h4>Create category</h4>
           )}
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                autoFocus
-                required
-              />
-              <br />
-              <button className="btn btn-outline-primary">Save</button>
-            </div>
-          </form>
+
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+          />
+
+          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+
           <hr />
-          {JSON.stringify(categories)}
+          {categories.filter(searched(keyword)).map((c) => (
+            <div className="alert alert-secondary" key={c._id}>
+              {c.name}
+              <span
+                onClick={() => handleRemove(c.slug)}
+                className="btn btn-sm float-right"
+              >
+                <DeleteOutlined className="text-danger" />
+              </span>
+              <Link to={`/admin/category/${c.slug}`}>
+                <span className="btn btn-sm float-right">
+                  <EditOutlined className="text-warning" />
+                </span>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>

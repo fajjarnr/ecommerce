@@ -18,6 +18,7 @@ import Wishlist from "./pages/user/Wishlist";
 
 import Dashboard from "./pages/admin/Dashboard";
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
 
 import { auth } from "./lib/firebase";
 import { useDispatch } from "react-redux";
@@ -69,6 +70,11 @@ function App() {
 
         <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
         <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+        <AdminRoute
+          exact
+          path="/admin/category/:slug"
+          component={CategoryUpdate}
+        />
       </Switch>
     </>
   );

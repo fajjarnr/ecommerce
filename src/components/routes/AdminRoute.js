@@ -21,7 +21,7 @@ const AdminRoute = ({ component: Component, children, ...rest }) => {
   }, [user]);
 
   return ok ? (
-    <Route {...rest} render={() => <Component {...rest} />} />
+    <Route {...rest} render={(rest) => <Component {...rest} />} />
   ) : (
     <LoadingToRedirect />
   );

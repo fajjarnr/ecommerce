@@ -66,13 +66,13 @@ const Header = () => {
             key="dropDown"
           >
             {user && user.role === "subscriber" && (
-              <Item key="dashboard">
+              <Item key="dashboardUser">
                 <Link to="/user/history">Dashboard</Link>
               </Item>
             )}
 
             {user && user.role === "admin" && (
-              <Item key="dashboard">
+              <Item key="dashboardAdmin">
                 <Link to="/admin/dashboard">Dashboard</Link>
               </Item>
             )}
