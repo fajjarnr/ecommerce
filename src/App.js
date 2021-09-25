@@ -15,7 +15,9 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
 import Password from "./pages/user/Password";
 import Wishlist from "./pages/user/Wishlist";
+
 import Dashboard from "./pages/admin/Dashboard";
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
 
 import { auth } from "./lib/firebase";
 import { useDispatch } from "react-redux";
@@ -66,6 +68,7 @@ function App() {
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
 
         <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
+        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
       </Switch>
     </>
   );

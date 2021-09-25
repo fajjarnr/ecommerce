@@ -1,11 +1,17 @@
 import React from "react";
+import AdminNav from "../../components/navbar/AdminNav";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   return (
-    <>
-      <p>Admin dashboard</p>
-    </>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
+        <div className="col">admin dashbaord page</div>
+      </div>
+    </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;
