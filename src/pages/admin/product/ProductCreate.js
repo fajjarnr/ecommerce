@@ -5,6 +5,8 @@ import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import AdminNav from "../../../components/navbar/AdminNav";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import { createProduct } from "../../../functions/product";
+import FileUpload from "../../../components/forms/FileUpload";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
   title: "Macbook Pro",
@@ -26,6 +28,7 @@ const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [showSub, setShowSub] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -69,8 +72,20 @@ const ProductCreate = () => {
         </div>
 
         <div className="col-md-10">
-          <h4>Product create</h4>
+          {loading ? (
+            <LoadingOutlined className="text-danger h1" />
+          ) : (
+            <h4>Product create</h4>
+          )}
           <hr />
+
+          <div className="p-3">
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </div>
 
           <ProductCreateForm
             handleSubmit={handleSubmit}
