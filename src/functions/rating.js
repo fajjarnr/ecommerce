@@ -7,15 +7,15 @@ import StarRating from "react-star-ratings";
 // 5 + 6 = 11
 // 11 + 7 = 18
 
-export const showAverage = (p) => {
-  if (p && p.ratings) {
-    let ratingsArray = p && p.ratings;
+export const showAverage = (product) => {
+  if (product && product.ratings) {
+    let ratingsArray = product && product.ratings;
     let total = [];
     let length = ratingsArray.length;
     // console.log("length", length);
 
-    ratingsArray.map((r) => total.push(r.star));
-    let totalReduced = total.reduce((p, n) => p + n, 0);
+    ratingsArray.map((rating) => total.push(rating.star));
+    let totalReduced = total.reduce((prev, next) => prev + next, 0);
     // console.log("totalReduced", totalReduced);
 
     let highest = length * 5;
@@ -27,7 +27,13 @@ export const showAverage = (p) => {
     return (
       <div className="text-center pt-1 pb-3">
         <span>
-          <StarRating rating={result} starRatedColor="orange" />
+          <StarRating
+            rating={result}
+            starDimension="20px"
+            starSpacing="2px"
+            starRatedColor="orange"
+          />{" "}
+          ({product.ratings.length})
         </span>
       </div>
     );
