@@ -1,7 +1,4 @@
-import { Card } from "antd";
 import { Link } from "react-router-dom";
-
-const { Meta } = Card;
 
 function ProductListItems({ product }) {
   const { price, category, subs, shipping, color, brand, quantity, sold } =

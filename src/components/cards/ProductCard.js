@@ -1,9 +1,9 @@
-import React from "react";
-import { Card, Skeleton } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import laptop from "../../images/laptop.png";
+import { Card } from "antd";
+import React from "react";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
+import laptop from "../../images/laptop.png";
 
 const { Meta } = Card;
 
