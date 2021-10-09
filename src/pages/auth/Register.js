@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { auth } from "../../lib/firebase";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { auth } from "../../lib/firebase";
 
 export default function Register({ history }) {
   const [email, setEmail] = useState("");

@@ -3,28 +3,40 @@ import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { auth, googleAuthProvider } from "../../lib/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
+import { auth, googleAuthProvider } from "../../lib/firebase";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  let dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
 
-  const roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
-      history.push("/admin/dashboard");
+  useEffect(() => {
+    let intended = history.location.state;
+    if (intended) {
+      return;
     } else {
-      history.push("/user/history");
+      if (user && user.token) history.push("/");
+    }
+  }, [user, history]);
+
+  let dispatch = useDispatch();
+
+  const roleBasedRedirect = (res) => {
+    // check if intended
+    let intended = history.location.state;
+    if (intended) {
+      history.push(intended.from);
+    } else {
+      if (res.data.role === "admin") {
+        history.push("/admin/dashboard");
+      } else {
+        history.push("/user/history");
+      }
     }
   };
-
-  useEffect(() => {
-    if (user && user.token) history.push("/");
-  }, [history, user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +65,6 @@ const Login = ({ history }) => {
 
       // history.push("/");
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
       setLoading(false);
     }
@@ -84,7 +95,6 @@ const Login = ({ history }) => {
         // history.push("/");
       })
       .catch((err) => {
-        console.log(err);
         toast.error(err.message);
       });
   };
