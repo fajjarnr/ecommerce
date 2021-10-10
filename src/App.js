@@ -14,6 +14,8 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 
 import Home from "./pages/Home";
 import Product from "./pages/Product";
+import CategoryHome from "./pages/category/CategoryHome";
+import SubHome from "./pages/sub/SubHome";
 
 import History from "./pages/user/History";
 import Password from "./pages/user/Password";
@@ -67,11 +69,15 @@ function App() {
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Home} />
+
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/register/complete" component={RegisterComplete} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
+
         <Route exact path="/product/:slug" component={Product} />
+        <Route exact path="/category/:slug" component={CategoryHome} />
+        <Route exact path="/sub/:slug" component={SubHome} />
 
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
