@@ -4,12 +4,14 @@ import {
   SettingOutlined,
   UserAddOutlined,
   UserOutlined,
+  ShoppingOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import firebase from "firebase";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import SeacrhForm from "../forms/SeacrhForm";
 
 const { SubMenu, Item } = Menu;
 
@@ -36,9 +38,18 @@ const Header = () => {
   };
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+    <Menu
+      key="menu"
+      onClick={handleClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+    >
       <Item key="home" icon={<AppstoreOutlined />}>
         <Link to="/">Home</Link>
+      </Item>
+
+      <Item key="shop" icon={<ShoppingOutlined />}>
+        <Link to="/shop">Shop</Link>
       </Item>
 
       <div className="header">
@@ -82,6 +93,8 @@ const Header = () => {
             </Item>
           </SubMenu>
         )}
+
+        <SeacrhForm />
       </div>
     </Menu>
   );

@@ -16,6 +16,7 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
+import Shop from "./pages/Shop";
 
 import History from "./pages/user/History";
 import Password from "./pages/user/Password";
@@ -78,6 +79,7 @@ function App() {
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />
+        <Route exact path="/shop" component={Shop} />
 
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />

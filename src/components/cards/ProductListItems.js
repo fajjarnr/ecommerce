@@ -18,7 +18,7 @@ function ProductListItems({ product }) {
           Category{" "}
           <Link
             to={`/category/${category.slug}`}
-            className="label label-default label-pill pull-xs-right text-white bg-primary p-1"
+            className="label label-default label-pill pull-xs-right"
           >
             {category.name}
           </Link>
@@ -32,7 +32,7 @@ function ProductListItems({ product }) {
             <Link
               key={s._id}
               to={`/sub/${s.slug}`}
-              className="label label-default label-pill pull-xs-right text-white bg-danger p-1"
+              className="label label-default label-pill pull-xs-right"
             >
               {s.name}
             </Link>
